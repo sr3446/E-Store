@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="login.component.css">
+</head>
+<body>
+  <h2>Login</h2>
+  <h5>or sign up</h5>
+  <form>        
+    <label for="username">Username</label>
+    <input #username type="text" id="username" name="username" (input)="setUsername(username.value)">
+    <label for="password">Password</label>
+    <input #password type="password" id="password" name="password" (input)="setPassword(password.value)"/>
+    <input type="submit" value="Submit" (click)="submitLogin()"/>
+  </form>
+</body>
+</html>

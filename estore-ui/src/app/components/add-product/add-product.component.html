@@ -1,0 +1,53 @@
+<html>
+    <h2>Add products</h2>
+
+    <nav>
+        <div>
+            <a routerLink="/browse">Home</a>
+            <a routerLink="/login">Log out</a>
+        </div>
+        <div *ngIf="user.name !== 'admin'">
+            <a routerLink="/wishlist">Wish List</a>
+            <a routerLink="/cart">Cart</a>
+        </div>
+        <div *ngIf="user.name === 'admin'">
+            <a routerLink="/add-product">Add Product</a>
+        </div>
+    </nav>
+
+
+    <h4>Species: {{newAnimal.species}}</h4>
+    <input #speciesBox (input)="setSpecies(speciesBox.value)"/>
+    
+    <br/>
+    <br/>
+    <h4>Description: {{newAnimal.description}}</h4>
+    <input #descriptionBox (input)="setDescription(descriptionBox.value)"/> 
+    
+    <br/>
+    <br/>
+    <h4>Price: {{newAnimal.price}}</h4>
+    <input #priceBox (input)="setPrice(priceBox.value)"/>
+    
+    <br/>
+    <br/>
+    <h4>Stock: {{newAnimal.stock}}</h4>
+    <input #stockBox (input)="setStock(stockBox.value)"/>
+    
+    <br/>
+    <br/>
+    <h4>Image Url: {{newAnimal.imageUrl}}</h4>
+    <input #imageUrlBox (input)="setImageUrl(imageUrlBox.value)"/>
+    <h1><img width="10%" src={{newAnimal.imageUrl}}></h1>
+    
+    <br/>
+    <br/>
+    <h1>
+        <button (click)="submit()">
+            <h1 *ngIf="newAnimal.id===-1">Create new animal</h1>
+            <h1 *ngIf="newAnimal.id!==-1">Edit animal</h1>
+        </button>
+    </h1>
+
+    
+</html>

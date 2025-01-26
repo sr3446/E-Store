@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <h2>Wishlist</h2>
+        <h5>Logged in as {{user.name}}</h5>
+        <nav>
+            <div>
+                <a routerLink="/browse">Home</a>
+                <a routerLink="/login">Log out</a>
+            </div>
+            <div *ngIf="user.name !== 'admin'">
+                <a routerLink="/cart">Cart</a>
+            </div>
+            <div *ngIf="user.name === 'admin'">
+                <a routerLink="/add-product">Add Product</a>
+            </div>
+        </nav>
+        <div class = "line"></div>
+
+        <div *ngIf="items && items!==null && items!==undefined">
+            <div *ngIf="items.length === 0">
+                <div class = "item">
+                    Your Wishlist is Empty<br>
+                    Add Items to Wishlist!
+                </div>
+            </div>
+            
+            <div *ngFor="let item of items">
+                <div class = "item">
+                    Species: {{item.animal.species}}
+                    <br>
+                    Price: ${{item.animal.price}}
+                    <br/>
+                    Amount: {{item.cartItem.amount}}
+                    <div class = "remove">
+                        <button (click)="remove(item.index)">Remove</button>
+                    </div>
+                    <div>
+                        <button (click)="moveToCart(item.index)">Add to Cart</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

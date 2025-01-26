@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="./styles.css"> -->
+    </head>
+    <body>
+        <h2>Browse</h2>
+        <h5>Logged in as {{user.name}}</h5>
+        <nav>
+            <div>
+                <!-- <a routerLink="/browse">Home</a> -->
+                <a routerLink="/login">Log out</a>
+            </div>
+            <div *ngIf="user.name !== 'admin'">
+                <a routerLink="/wishlist">Wish List</a>
+                <a routerLink="/cart">Cart</a>
+            </div>
+            <div *ngIf="user.name === 'admin'">
+                <a routerLink="/add-product">Add Product</a>
+            </div>
+        </nav>
+        <div class="search-box">
+            <input #searchBox id="search-box" (input)="search(searchBox.value)" placeholder="Search products" />
+        </div>
+        <!--make it so it says if no search results-->
+        <!--if search terms is an empty string then no-->
+        <h1 class="product-list-title" *ngIf="
+            searchResults && 
+            searchResults.length === 0 && 
+            searchBox.value !== ''"
+        >
+            No Search Results
+        </h1>
+        <div class="product-list" *ngIf="searchResults">
+            <div *ngFor="let product of searchResults">
+                <div class="product">
+                    <h2 class="search-result-header"><a routerLink="/product/{{product.id}}">{{product.species}}</a></h2>
+                    <p>{{product.description}}</p>
+                </div>
+            </div>
+            <div class = "line"></div>
+        </div>
+        <h1 class="product-list-title">Product List</h1>
+        <div class = "line"></div>
+        <div class="product-list" *ngIf="allAnimals">
+            <div *ngFor="let product of allAnimals">
+                <div class="product">
+                    <!-- <img src="{{product.image}}" /> -->
+                    
+                    <h2><a routerLink="/product/{{product.id}}">{{product.species}}</a></h2>
+                    <p>{{product.description}}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

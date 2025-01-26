@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <h2>Cart</h2>
+        <h5>Logged in as {{user.name}}</h5>
+        <nav>
+            <div>
+                <a routerLink="/browse">Home</a>
+                <a routerLink="/login">Log out</a>
+            </div>
+            <div *ngIf="user.name !== 'admin'">
+                <a routerLink="/wishlist">Wish List</a>
+                <!-- <a routerLink="/cart">Cart</a> -->
+            </div>
+            <div *ngIf="user.name === 'admin'">
+                <a routerLink="/add-product">Add Product</a>
+            </div>
+        </nav>
+        <div class = "line"></div>
+        <div *ngIf="items">
+            <div class = "empty">
+                <button (click)="clearCart()">Empty Cart</button>
+            </div>
+            <div *ngIf="items.length === 0">
+                <div class = "item">
+                    Your Cart is Empty<br>
+                    Add Items to fill cart!
+                </div>
+            </div>
+
+            <div *ngFor="let item of items">
+                <div class = "item">
+                    Species: {{item.animal.species}}    <br/>Amount: {{item.cartItem.amount}} <br/>
+                    Price: ${{item.animal.price}} -- Total Price: ${{(item.animal.price * item.cartItem.amount)}}
+                    <div class = "remove">
+                        <button (click)="remove(item.index)">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <div class = "line"></div>
+            <div class = "item2">
+                <h3>Total Price: <br>${{totalPrice}}<br><button (click)="clearCart()">Checkout</button></h3>
+            </div>
+        </div>
+    </body>
+</html>

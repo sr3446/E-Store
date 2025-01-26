@@ -1,0 +1,71 @@
+<html>
+    <body>
+        <h2>Product</h2>
+        <h5>Logged in as {{user.name}}</h5>
+        <nav>
+            <div>
+                <a routerLink="/browse">Home</a>
+                <a routerLink="/login">Log out</a>
+            </div>
+            <div *ngIf="user.name !== 'admin'">
+                <a routerLink="/wishlist">Wish List</a>
+                <a routerLink="/cart">Cart</a>
+            </div>
+            <div *ngIf="user.name === 'admin'">
+                <a routerLink="/add-product">Add Product</a>
+            </div>
+        </nav>
+
+        <div class="product-details">
+            <div class="left">
+                <div class="product-image">
+                    <div *ngIf="product!.imageUrl">
+                        <img width="200%" src={{product!.imageUrl}} alt="product image">
+                    </div>
+                </div>
+    
+                <div class="product-info" *ngIf="product">
+                    <h1>Name: {{product.species}}</h1>
+                    <h1>Price: ${{product.price}}</h1>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="product-description" *ngIf="product">
+                    <h3>Stock: {{product.stock}}</h3>
+                    <h3>Description: {{product.description}}</h3>
+                </div>
+    
+                <div class="product-actions" *ngIf="user.name !== 'admin'">
+                    <button (click)="addToCart()">Add to Cart</button>
+                    <button (click)="addToWishlist()">Add to Wishlist</button>
+                </div>
+    
+                <div class="product-actions" *ngIf="user.name === 'admin'">
+                    <button (click)="deleteProduct()">Delete product</button>
+                    <button (click)="editProduct()">Edit product</button>
+
+                </div>
+                <div class = "line"></div>
+                <h3>Review</h3>
+                <div *ngIf="user.name !== 'admin'">
+                    <input 
+                        type="text" 
+                        #reviewInput 
+                        (input)="setReview(reviewInput.value)" 
+                        placeholder="Write a review"
+                    >
+                    <button (click)="addReview()">Add Review</button>
+                </div>
+                <div class="review">
+                    <div *ngFor="let review of product!.reviews">
+                        <h3>{{review.name}}</h3>
+                        <p>{{review.review}}</p>
+                        <button *ngIf="user.name === 'admin' || user.name === review.name" (click)="deleteReview(review)">Delete Review</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body> 
+</html>
